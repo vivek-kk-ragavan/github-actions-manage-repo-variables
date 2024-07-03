@@ -1,0 +1,30 @@
+name: 'Repository Variable Manager'
+description: 'Checks, creates, and updates repository variables'
+inputs:
+  token:
+    description: 'GitHub token'
+    required: true
+  repository:
+    description: 'Repository name (owner/repo)'
+    required: true
+  action:
+    description: 'Action to perform (get, create, update)'
+    required: true
+  variable_name:
+    description: 'The name of the variable'
+    required: true
+  variable_value:
+    description: 'The value of the variable (required for create and update)'
+    required: false
+
+outputs:
+  value:
+    description: 'The value of the variable'
+  available:
+    description: 'Whether the variable is available'
+  success:
+    description: 'Whether the create or update operation was successful'
+
+runs:
+  using: 'node22'
+  main: 'dist/index.js'
