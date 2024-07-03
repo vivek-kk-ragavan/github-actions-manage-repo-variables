@@ -26,5 +26,5 @@ outputs:
     description: 'Whether the create or update operation was successful'
 
 runs:
-  using: 'node22'
+  using: 'node20'
   main: 'dist/index.js'
