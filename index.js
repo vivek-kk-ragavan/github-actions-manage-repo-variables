@@ -46,6 +46,7 @@ async function run() {
           value: variableValue
         });
         core.setOutput('success', true);
+        core.setOutput('value', variableValue)
         core.info(`Variable ${variableName} created.`);
       } catch (error) {
         core.setOutput('success', false);
@@ -67,6 +68,7 @@ async function run() {
           value: variableValue
         });
         core.setOutput('success', true);
+        core.setOutput('value', variableValue)
         core.info(`Variable ${variableName} updated.`);
       } catch (error) {
         core.setOutput('success', false);
