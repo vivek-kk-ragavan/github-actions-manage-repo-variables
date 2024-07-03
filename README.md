@@ -36,10 +36,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       
       - name: Manage repository variables
-        uses: vivek-kk-ragavan/github-actions-manage-repo-variables
+        uses: vivek-kk-ragavan/github-actions-manage-repo-variables@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           repository: 'owner/repo'
@@ -54,7 +54,7 @@ jobs:
 
 ```yaml
 - name: Get repository variable
-  uses: vivek-kk-ragavan/github-actions-manage-repo-variables
+  uses: vivek-kk-ragavan/github-actions-manage-repo-variables@main
   with:
     token: ${{ secrets.GITHUB_TOKEN }}
     repository: 'owner/repo'
@@ -66,7 +66,7 @@ jobs:
 
 ```yaml
 - name: Create repository variable
-  uses: vivek-kk-ragavan/github-actions-manage-repo-variables
+  uses: vivek-kk-ragavan/github-actions-manage-repo-variables@main
   with:
     token: ${{ secrets.GITHUB_TOKEN }}
     repository: 'owner/repo'
@@ -79,7 +79,7 @@ jobs:
 
 ```yaml
 - name: Update repository variable
-  uses: vivek-kk-ragavan/github-actions-manage-repo-variables
+  uses: vivek-kk-ragavan/github-actions-manage-repo-variables@main
   with:
     token: ${{ secrets.GITHUB_TOKEN }}
     repository: 'owner/repo'
