@@ -30467,19 +30467,34 @@ async function run() {
         return;
       }
 
-      // Create variable
-      try {
-        await octokit.rest.actions.createRepoVariable({
-          owner,
-          repo,
-          name: variableName,
-          value: variableValue
-        });
-        core.setOutput('success', true);
-        core.info(`Variable ${variableName} created.`);
-      } catch (error) {
+      // Check if variable already exists
+      const { data } = await octokit.rest.actions.listRepoVariables({
+        owner,
+        repo
+      });
+
+      const existingVariable = data.variables.find(v => v.name === variableName);
+
+      if (existingVariable) {
         core.setOutput('success', false);
-        core.setFailed(`Failed to create variable ${variableName}: ${error.message}`);
+        core.setOutput('value', existingVariable.value);
+        core.info(`Variable ${variableName} already exists with value: ${existingVariable.value}`);
+      } else {
+        // Create variable
+        try {
+          await octokit.rest.actions.createRepoVariable({
+            owner,
+            repo,
+            name: variableName,
+            value: variableValue
+          });
+          core.setOutput('success', true);
+          core.setOutput('value', variableValue);
+          core.info(`Variable ${variableName} created.`);
+        } catch (error) {
+          core.setOutput('success', false);
+          core.setFailed(`Failed to create variable ${variableName}: ${error.message}`);
+        }
       }
     } else if (actionType === 'update') {
       if (!variableValue) {
@@ -30488,22 +30503,49 @@ async function run() {
         return;
       }
 
-      // Update variable
-      try {
-        await octokit.rest.actions.updateRepoVariable({
-          owner,
-          repo,
-          name: variableName,
-          value: variableValue
-        });
-        core.setOutput('success', true);
-        core.info(`Variable ${variableName} updated.`);
-      } catch (error) {
-        core.setOutput('success', false);
-        core.setFailed(`Failed to update variable ${variableName}: ${error.message}`);
+      // Check if variable already exists
+      const { data } = await octokit.rest.actions.listRepoVariables({
+        owner,
+        repo
+      });
+
+      const existingVariable = data.variables.find(v => v.name === variableName);
+
+      if (existingVariable) {
+        // Update variable
+        try {
+          await octokit.rest.actions.updateRepoVariable({
+            owner,
+            repo,
+            name: variableName,
+            value: variableValue
+          });
+          core.setOutput('success', true);
+          core.setOutput('value', variableValue);
+          core.info(`Variable ${variableName} updated.`);
+        } catch (error) {
+          core.setOutput('success', false);
+          core.setFailed(`Failed to update variable ${variableName}: ${error.message}`);
+        }
+      } else {
+        // Create variable
+        try {
+          await octokit.rest.actions.createRepoVariable({
+            owner,
+            repo,
+            name: variableName,
+            value: variableValue
+          });
+          core.setOutput('success', true);
+          core.setOutput('value', variableValue);
+          core.info(`Variable ${variableName} did not exist and has been created.`);
+        } catch (error) {
+          core.setOutput('success', false);
+          core.setFailed(`Failed to update variable ${variableName}: ${error.message}`);
+        }
       }
     } else {
-      core.setFailed('Invalid action type. Use check, create, or update.');
+      core.setFailed('Invalid action type. Use get, create, or update.');
     }
   } catch (error) {
     core.setFailed(error.message);
