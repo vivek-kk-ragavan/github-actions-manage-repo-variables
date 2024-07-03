@@ -1,5 +1,3 @@
-# github-actions-manage-repo-variables
-
 # Repository Variable Manager
 
 This GitHub Action allows you to check, create, and update repository variables.
