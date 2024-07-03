@@ -16,11 +16,11 @@ This GitHub Action allows you to check, create, and update repository variables.
 
 ## Outputs
 
-| Name       | Description                                          |
-|------------|------------------------------------------------------|
-| `value`    | The value of the variable                            |
-| `available`| Whether the variable is available (for `get` action) |
-| `success`  | Whether the create or update operation was successful|
+| Name       | Description                                                           |
+|------------|-----------------------------------------------------------------------|
+| `value`    | The value of the variable (for `get` action)                          |
+| `available`| Whether the variable is available (for `get` action)                  |
+| `success`  | Whether the operation was successful (for `create` or `update` action)|
 
 ## Usage
 
