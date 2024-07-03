@@ -30541,7 +30541,7 @@ async function run() {
           core.info(`Variable ${variableName} did not exist and has been created.`);
         } catch (error) {
           core.setOutput('success', false);
-          core.setFailed(`Failed to update variable ${variableName}: ${error.message}`);
+          core.setFailed(`Failed to create variable ${variableName}: ${error.message}`);
         }
       }
     } else {
